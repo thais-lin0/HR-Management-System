@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<main>
+ 
+  <form method="POST">
+    {% csrf_token %}
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+{% endif %}
+<form method="POST">
+    <div class="form-group">
+        <h2 style="text-align: center;">Cadastrar</h2>
+        <label for="username">Usuário</label>
+        <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp">
+        <small id="usernameHelp" class="form-text text-muted">Your username must be unique. We'll let you know if someone has taken it already.</small>
+    </div>
+    <div class="form-group">
+        <label for="password1">Senha</label>
+        <input type="password" name="password1" class="form-control" id="password1">
+    </div>
+    <div class="form-group">
+        <label for="password2">Confirmar Senha</label>
+        <input type="password" name="password2" class="form-control" id="password2">
+    </div>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+</main>
+
+{% endblock %}
