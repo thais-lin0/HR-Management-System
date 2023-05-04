@@ -45,3 +45,9 @@ def logoutuser(request):
     if request.method == 'POST':
         logout(request)
         return redirect('home')
+
+def funcionarios(request):
+    return render(request, 'funcionarios.html')
+
+def ferias(request):
+    return render(request, 'ferias.html')

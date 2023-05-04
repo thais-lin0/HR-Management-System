@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<main>
+	
+	<form>
+        <h1 style="text-align: center;">Registro de novo funcionário</h1>
+		<label for="name">Nome Completo</label>
+		<input type="text" id="name" name="name"><br><br>
+
+		<label for="role">Função</label>
+		<input type="text" id="role" name="role"><br><br>
+
+		<label for="salary">Salário</label>
+		<input type="number" id="salary" name="salary"><br><br>
+
+		<label for="work_section">Setor</label>
+		<select id="work_section" name="work_section">
+			<option value="sales">Vendas</option>
+			<option value="marketing">Marketing</option>
+			<option value="human_resources">Recursos HUmanos</option>
+			<option value="operations">Operações</option>
+			<option value="it">Tecnologia da Informação</option>
+		</select><br><br>
+
+		<button type="submit" class="btn btn-primary">Cadastrar</button>
+	</form>
+</main>
+
+
+{% endblock %}

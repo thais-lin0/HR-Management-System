@@ -19,10 +19,10 @@
     </div>
     <ul>
       <li><a href="{% url 'home' %}">Início</a></li>
-      <li><a href="{% url 'sobre' %}">Sobre</a></li>
-      <li><a href="{% url 'signup' %}">Cadastro</a></li>
 
       {% if user.is_authenticated %}
+      <li class="nav-item"><a href="{% url 'funcionarios' %}">Funcionários</a></li>
+      <li class="nav-item"><a href="{% url 'ferias' %}">Férias</a></li>
       <li class="nav-item">
         <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
         <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
@@ -30,7 +30,10 @@
           <button id="signOutBtn" type="submit">Logout</button>
         </form>
       </li>
+      
       {% else %}
+      <li><a href="{% url 'sobre' %}">Sobre</a></li>
+      <li><a href="{% url 'signup' %}">Cadastro</a></li>
       <li><a href="{% url 'user_login' %}">Login</a></li>
       {% endif %}
     </ul>

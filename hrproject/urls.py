@@ -36,4 +36,10 @@ urlpatterns = [
     # Sobre
     path('sobre/', views.sobre, name='sobre'),
 
+    # Funcionarios
+    path('funcionarios/', views.funcionarios, name='funcionarios'),
+
+    # Férias
+    path('ferias/', views.ferias, name='ferias'),
+
 ]
