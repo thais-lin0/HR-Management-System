@@ -41,5 +41,7 @@ urlpatterns = [
 
     # Férias
     path('ferias/', views.ferias, name='ferias'),
-
+    
+    # staff_only_view
+    path('staff/', views.staff_only_view, name='staff'),
 ]
