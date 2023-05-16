@@ -3,30 +3,42 @@
 {% block content %}
 
 <main>
-	
-	<form>
-        <h1 style="text-align: center;">Registro de novo funcionário</h1>
-		<label for="name">Nome Completo</label>
-		<input type="text" id="name" name="name"><br><br>
-
-		<label for="role">Função</label>
-		<input type="text" id="role" name="role"><br><br>
-
-		<label for="salary">Salário</label>
-		<input type="number" id="salary" name="salary"><br><br>
-
-		<label for="work_section">Setor</label>
-		<select id="work_section" name="work_section">
-			<option value="sales">Vendas</option>
-			<option value="marketing">Marketing</option>
-			<option value="human_resources">Recursos HUmanos</option>
-			<option value="operations">Operações</option>
-			<option value="it">Tecnologia da Informação</option>
-		</select><br><br>
-
-		<button type="submit" class="btn btn-primary">Cadastrar</button>
-	</form>
+ 
+  <form method="POST">
+    {% csrf_token %}
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+{% endif %}
+<form method="POST">
+    <div class="form-group">
+        <h2 style="text-align: center;">Cadastro de Novos Funcionários</h2>
+        <label for="name">Nome</label>
+        <input type="text" name="name" class="form-control" id="username" aria-describedby="nameHelp">
+    </div>
+    <div class="form-group">
+        <label for="role">Função</label>
+        <input type="text" name="role" class="form-control" id="role">
+    </div>
+    <div class="form-group">
+        <label for="salary">Salário</label>
+        <input type="number" name="salary" class="form-control" id="salary">
+    </div>
+    <div class="form-check">
+      <div class="form-group">
+		<label for="cars">Setor</label>
+<select id="work_section" name="work_section">
+  <option value="volvo">Vendas</option>
+  <option value="saab">Comercial </option>
+  <option value="fiat">Fiat</option>
+  <option value="audi">Audi</option>
+</select>
+        <label for="code">Staff code (if applicable)</label>
+        <input type="text" class="form-control" id="code" name="code" maxlength="20">
+      </div>
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
 </main>
-
 
 {% endblock %}

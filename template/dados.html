@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <body>
+        <main>
+          <div class="section">
+<h2>Meus Dados</h2>
+<p>Name: {{ employee.name }}</p>
+<p>Role: {{ employee.role }}</p>
+<p>Salary: {{ employee.salary }}</p>
+<p>Work Section: {{ employee.work_section }}</p>
+</div>
+</main>
+{% endblock %}

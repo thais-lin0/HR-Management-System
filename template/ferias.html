@@ -6,8 +6,30 @@
 
 
 <main>
-<div class="section" style="text-align: center;">
-    <h1>Requisição de Férias</h1>
-</div>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+    <h2 style="text-align: center;">Solicitar Férias</h2>
+    <label for="start_date">Data de Início:</label>
+    <input type="date" id="start_date" name="start_date" required>
+
+    <label for="end_date">Data Final:</label>
+    <input type="date" id="end_date" name="end_date" required>
+
+    <label for="reason">Razão:</label>
+    <textarea id="reason" name="reason" rows="4" required></textarea>
+
+    <button type="submit">Solicitar</button>
+  </form>
+  <p>
+    {% if requisition.status == 'Pending' %}
+      Aguardando aprovação
+    {% elif requisition.status == 'Approved' %}
+      Aprovado
+    {% elif requisition.status == 'Denied' %}
+      Negado
+    {% endif %}
+  </p>
+
 </main>
 {% endblock %}

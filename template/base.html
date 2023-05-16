@@ -19,10 +19,10 @@
     </div>
     <ul>
       <li><a href="{% url 'home' %}">Início</a></li>
-
-      {% if user.is_authenticated %}
+      {% if request.user.is_authenticated %}
+      {% if request.user.is_staff %}
       <li class="nav-item"><a href="{% url 'funcionarios' %}">Funcionários</a></li>
-      <li class="nav-item"><a href="{% url 'ferias' %}">Férias</a></li>
+      <li class="nav-item"><a href="{% url 'aceiteferias' %}">Férias</a></li>
       <li class="nav-item">
         <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
         <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
@@ -30,7 +30,22 @@
           <button id="signOutBtn" type="submit">Logout</button>
         </form>
       </li>
-      
+      {% else%}
+
+      <ul>
+        <li><a href="{% url 'ferias' %}">Requisitar Férias</a></li>
+        <li><a href="{% url 'ponto' %}">Bater Ponto</a></li>
+        <li><a href="{% url 'dados' %}">Meus Dados</a></li>
+        <li class="nav-item">
+          <a href="#" onclick="$('#signOutBtn').click()" class="nav-link">Logout</a>
+          <form style='display: none;' method="POST" action="{% url 'logoutuser' %}">
+            {% csrf_token %}
+            <button id="signOutBtn" type="submit">Logout</button>
+          </form>
+        </li>
+    </ul>
+      {% endif %}
+    
       {% else %}
       <li><a href="{% url 'sobre' %}">Sobre</a></li>
       <li><a href="{% url 'signup' %}">Cadastro</a></li>

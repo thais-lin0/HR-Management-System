@@ -39,9 +39,21 @@ urlpatterns = [
     # Funcionarios
     path('funcionarios/', views.funcionarios, name='funcionarios'),
 
-    # Férias
+    # Aceitar ou Negar Férias
+    path('aceiteferias/', views.aceiteferias, name='aceiteferias'),
+    
+    # Solicitar Férias
     path('ferias/', views.ferias, name='ferias'),
+
+    # Status Férias
+    path('status/', views.status, name='status'),
     
     # staff_only_view
     path('staff/', views.staff_only_view, name='staff'),
+
+    # Bater ponto
+    path('ponto/', views.ponto, name='ponto'),
+
+    # Dados do funcionário
+    path('dados/', views.dados, name='dados'),
 ]

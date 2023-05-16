@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<main>
+
+  <body>
+    <main>
+      <div class="section" style="text-align: center;">
+        <h2>Requisições de Férias</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Usuário</th>
+              <th>Data de Início</th>
+              <th>Data Final</th>
+              <th>Razão</th>
+              <th>Status</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for requisition in requisitions %}
+            <tr>
+              <td>{{ requisition.user }}</td>
+              <td>{{ requisition.start_date }}</td>
+              <td>{{ requisition.end_date }}</td>
+              <td>{{ requisition.reason }}</td>
+              <td>{{ requisition.status }}</td>
+              <td>
+                <form method="POST" action="{% url 'aceiteferias' %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="requisition_id" value="{{ requisition.id }}">
+                  {% if requisition.status != 'Pending' %}
+                    <p>Already done</p>
+                  {% else %}
+                    <select name="status">
+                      <option value="Pending" {% if requisition.status == 'Pending' %}selected{% endif %}>Pendente</option>
+                      <option value="Approved" {% if requisition.status == 'Approved' %}selected{% endif %}>Aprovado</option>
+                      <option value="Denied" {% if requisition.status == 'Denied' %}selected{% endif %}>Negado</option>
+                    </select>
+                    <button type="submit">Enviar</button>
+                  {% endif %}
+                  
+                </form>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+  </body>
+
+  {% endblock %}

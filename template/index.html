@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>HR Management</title>
+  <link href="{% static 'style.css' %}" rel="stylesheet">
+
+
+</head>
+
+<body>
+  <nav>
+    <div>
+      <h1><a href="{% url 'home' %}">Gerenciador de Recursos Humanos</a></h1>
+    </div>
+    <ul>
+      <li><a href="{% url 'home' %}">Início</a></li>
+      <li class="nav-item"><a href="{% url 'funcionarios' %}">Funcionários</a></li>
+      <li class="nav-item"><a href="{% url 'ferias' %}">Férias</a></li>
+  
+
+      <ul>
+        <li><a href="#">Requisitar Férias</a></li>
+        <li><a href="#">Bater Ponto</a></li>
+        <li><a href="#">Meus Dados</a></li>
+<li><a href="#">Logout</a></li>
+    </ul>
+
+    
+      <li><a href="{% url 'sobre' %}">Sobre</a></li>
+      <li><a href="{% url 'signup' %}">Cadastro</a></li>
+      <li><a href="{% url 'user_login' %}">Login</a></li>
+
+    </ul>
+  </nav>
+
+
+
+  <footer>
+    Desenvolvido por Thais Lino - Gerenciador de recursos humanos
+  </footer>
+
+  </div>
+</body>
