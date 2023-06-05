@@ -15,7 +15,12 @@
     <div class="form-group">
         <h2 style="text-align: center;">Cadastro de Novos Funcionários</h2>
         <label for="name">Nome</label>
-        <input type="text" name="name" class="form-control" id="username" aria-describedby="nameHelp">
+        <input type="text" name="name" class="form-control" id="name" aria-describedby="nameHelp">
+        <label for="username">Usuário</label>
+        <input type="text" name="username" class="form-control" id="username" aria-describedby="nameHelp">
+        {% if user_exists %}
+        <small id="usernameHelp" class="form-text text-muted">Esse usuário deve ser único</small>
+{% endif %}
     </div>
     <div class="form-group">
         <label for="role">Função</label>
@@ -29,14 +34,11 @@
       <div class="form-group">
 		<label for="cars">Setor</label>
 <select id="work_section" name="work_section">
-  <option value="volvo">Vendas</option>
-  <option value="saab">Comercial </option>
-  <option value="fiat">Fiat</option>
-  <option value="audi">Audi</option>
+  <option value="Vendas">Vendas</option>
+  <option value="Comercial">Comercial </option>
+  <option value="Tech">Tech</option>
+  <option value="RH">RH</option>
 </select>
-        <label for="code">Staff code (if applicable)</label>
-        <input type="text" class="form-control" id="code" name="code" maxlength="20">
-      </div>
     <button type="submit" class="btn btn-primary">Cadastrar</button>
 </form>
 </main>

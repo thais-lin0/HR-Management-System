@@ -8,6 +8,8 @@ from django.contrib.auth import get_user_model
 from django.utils import timezone
 from .models import TimeEntry, Employee, Ferias
 from datetime import timedelta
+from django.db import IntegrityError
+
 
 
 
@@ -20,7 +22,6 @@ def sobre(request):
     return render(request, 'sobre.html')
 
 def signup(request):
-    User = get_user_model()  # Retrieve the User model dynamically
 
     if request.method == 'GET':
         return render(request, 'signup.html', {'form': UserCreationForm()})
@@ -55,14 +56,37 @@ def user_login(request):
             login(request, user)
             return redirect('home')
 
-def add_employee(request):
+from django.contrib.auth import get_user_model
+
+from django.http import HttpResponse
+from django.contrib.auth import get_user_model
+
+def funcionarios(request):
     if request.method == 'POST':
-        form = (request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('sucesso')
+        name = request.POST.get('name')
+        username= request.POST.get('username')
+        role = request.POST.get('role')
+        salary = request.POST.get('salary')
+        work_section = request.POST.get('work_section')
+        
+        if name and role and salary and work_section and username:
+            employee = Employee(name=name, role=role, salary=salary, work_section=work_section, username=username)
+            employee.save()
+
+            # Check if a user with the same username already exists
+            User = get_user_model()
+            try:
+                username = User.objects.create_user(username=name)
+                return render(request, 'sucesso.html')
+            except IntegrityError:
+                return render(request, 'user_exists.html', {'username': name})
+            
+        else:
+            return render(request, 'fail.html')
     else:
-        return render(request, 'fail.html', {'form': form})
+        return render(request, 'funcionarios.html')
+
+
 
 
 @login_required
@@ -70,9 +94,6 @@ def logoutuser(request):
     if request.method == 'POST':
         logout(request)
         return redirect('home')
-
-def funcionarios(request):
-    return render(request, 'funcionarios.html')
 
 @login_required
 def staff_only_view(request):

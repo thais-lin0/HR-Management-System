@@ -5,9 +5,11 @@ from django.utils import timezone
 
 class Employee(models.Model):
     name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, default=name)
     role = models.CharField(max_length=255)
     salary = models.PositiveIntegerField()
     work_section = models.CharField(max_length=255)
+    
 
     def __str__(self):
         return self.name

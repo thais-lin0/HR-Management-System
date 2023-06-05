@@ -1,1 +1,14 @@
-nao foi cadastrado
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<body>
+    <main>
+      <div class="section">
+        <h2>Funcionário não foi cadastrado!</h2>
+      <li class="nav-item"><a href="{% url 'funcionarios' %}">Cadastrar outro funcionário</a></li>
+      </div>
+    </main>
+</body>
+
+{% endblock %}

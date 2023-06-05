@@ -1,1 +1,14 @@
-o usuario foi cadastrado com sucesso
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<body>
+    <main>
+      <div class="section">
+        <h2>Funcionário cadastrado com sucesso!</h2>
+      <li class="nav-item"><a href="{% url 'funcionarios' %}">Cadastrar outro funcionário</a></li>
+      </div>
+    </main>
+</body>
+
+{% endblock %}
