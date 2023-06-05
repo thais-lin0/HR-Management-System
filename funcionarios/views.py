@@ -9,9 +9,9 @@ from django.utils import timezone
 from .models import TimeEntry, Employee, Ferias
 from datetime import timedelta
 from django.db import IntegrityError
-
-
-
+import string
+import random
+from django.contrib.auth.forms import SetPasswordForm
 
 
 def home(request):
@@ -47,46 +47,81 @@ def signup(request):
 
 def user_login(request):
     if request.method == 'GET':
-        return render(request, 'user_login.html', {'form':AuthenticationForm()})
+        return render(request, 'user_login.html', {'form': AuthenticationForm()})
     else:
-        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
         if user is None:
-            return render(request, 'user_login.html', {'form':AuthenticationForm(), 'error':'Username and password did not match'})
-        else:
+            error_message = 'Usuário ou senha incorreto!'
+            return render(request, 'user_login.html', {'form': AuthenticationForm(), 'error': error_message})
+
+        if user.last_login is None:
+            # First login, redirect to password reset page
             login(request, user)
-            return redirect('home')
+            return redirect('reset_password')
 
-from django.contrib.auth import get_user_model
+        login(request, user)
+        return redirect('home')
 
-from django.http import HttpResponse
-from django.contrib.auth import get_user_model
+def make_random_password(length=8):
+    characters = string.ascii_letters + string.digits + string.punctuation
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+
+def reset_password(request):
+    if request.method == 'GET':
+        return render(request, 'reset_password.html')
+    elif request.method == 'POST':
+        username = request.POST.get('username')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        User = get_user_model()
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return render(request, 'reset_password.html', {'error': 'Nome de usuário inválido'})
+
+        if new_password != confirm_password:
+            return render(request, 'reset_password.html', {'error': 'Senhas não conferem'})
+
+        user.set_password(new_password)
+        user.save()
+
+        # Log in the user with the new password
+        user = authenticate(request, username=username, password=new_password)
+        if user is not None:
+            login(request, user)
+
+        return redirect('home')
 
 def funcionarios(request):
     if request.method == 'POST':
         name = request.POST.get('name')
-        username= request.POST.get('username')
+        input_username = request.POST.get('username')
         role = request.POST.get('role')
         salary = request.POST.get('salary')
         work_section = request.POST.get('work_section')
-        
-        if name and role and salary and work_section and username:
-            employee = Employee(name=name, role=role, salary=salary, work_section=work_section, username=username)
+
+        if name and role and salary and work_section and input_username:
+            password = make_random_password()  # Generate a random password
+            employee = Employee(name=name, role=role, salary=salary, work_section=work_section, username=input_username)
             employee.save()
 
             # Check if a user with the same username already exists
             User = get_user_model()
             try:
-                username = User.objects.create_user(username=name)
-                return render(request, 'sucesso.html')
+                User = User.objects.create_user(username=input_username, password=password)
+                return render(request, 'sucesso.html', {'password': password, 'input_username': input_username})
             except IntegrityError:
-                return render(request, 'user_exists.html', {'username': name})
+                return render(request, 'user_exists.html', {'username': input_username})
             
         else:
             return render(request, 'fail.html')
     else:
         return render(request, 'funcionarios.html')
-
-
 
 
 @login_required
@@ -159,11 +194,8 @@ def status(request):
 
 @login_required
 def dados(request):
-    try:
-        employee = Employee.objects.get(name=request.user.username)
-        return render(request, 'dados.html', {'employee': employee})
-    except Employee.DoesNotExist:
-        return render(request, '404.html')
+    employee = get_object_or_404(Employee, username=request.user.username)
+    return render(request, 'dados.html', {'employee': employee})
 
 @login_required
 def aceiteferias(request):

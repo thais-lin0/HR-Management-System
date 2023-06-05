@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<body>
+    <main>
+      <div class="section" style="text-align: center;">
+        <h2>O nome de usuário já está cadastrado!</h2>
+        <li class="nav-item"><a href="{% url 'funcionarios' %}">Cadastrar novamente</a></li>
+      </div>
+    </main>
+  </body>
+
+  {% endblock %}

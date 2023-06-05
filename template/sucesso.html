@@ -6,6 +6,8 @@
     <main>
       <div class="section">
         <h2>Funcionário cadastrado com sucesso!</h2>
+        <p>A senha inicial é: {{ password }}</p>
+        <p>O usuário é: {{ input_username }}</p>
       <li class="nav-item"><a href="{% url 'funcionarios' %}">Cadastrar outro funcionário</a></li>
       </div>
     </main>

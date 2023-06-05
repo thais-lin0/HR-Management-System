@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from funcionarios import views
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -56,4 +57,7 @@ urlpatterns = [
 
     # Dados do funcionário
     path('dados/', views.dados, name='dados'),
+
+    # Reset da senha
+    path('reset_password/', views.reset_password, name='reset_password'),
 ]
