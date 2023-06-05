@@ -8,7 +8,7 @@
     <div class="form-group">
       <h2 style="text-align: center;">Bater Ponto</h2>
       {% if already_punched %}
-        <p>You have already punched the time for today.</p>
+        <p style="text-align: center;">Você já bateu o ponto hoje!</p>
       {% else %}
         <label for="start_time">Start Time:</label>
         <input type="datetime-local" id="start_time" name="start_time" required pattern="\d{4}-\d{2}-\d{2}T\d{2}:\d{2}" title="Please enter a valid date and time in the format YYYY-MM-DD HH:MM">
